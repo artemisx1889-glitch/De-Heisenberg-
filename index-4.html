@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For you ❤️</title>
+<style>
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: #000;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial, sans-serif;
+}
+#heart-container {
+  position: relative;
+  width: min(94vw, 620px);
+  height: min(94vw, 620px);
+}
+.love-word {
+  position: absolute;
+  color: #ffb3d9;
+  font-size: clamp(9px, 2.5vw, 17px);
+  font-weight: 600;
+  white-space: nowrap;
+  text-shadow: 0 0 5px #ff8fc8, 0 0 12px #ff5eae;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  animation: glow 3.8s ease-in-out infinite;
+}
+@keyframes glow {
+  0%, 100% { opacity: .12; filter: blur(1px); transform: translate(-50%, -50%) scale(.94); }
+  50% { opacity: 1; filter: blur(0); transform: translate(-50%, -50%) scale(1.08); }
+}
+.note {
+  position: fixed;
+  bottom: 22px;
+  color: #8d7885;
+  font-size: 12px;
+  letter-spacing: 2px;
+}
+</style>
+</head>
+<body>
+<div id="heart-container" aria-label="Coração formado por frases I love you"></div>
+<div class="note">I LOVE YOU ♡</div>
+<script>
+const container = document.getElementById("heart-container");
+const total = 230;
+
+for (let i = 0; i < total; i++) {
+  const t = (i / total) * Math.PI * 2;
+  const x = 16 * Math.pow(Math.sin(t), 3);
+  const y = -(13 * Math.cos(t) - 5 * Math.cos(2*t)
+              - 2 * Math.cos(3*t) - Math.cos(4*t));
+
+  const word = document.createElement("span");
+  word.className = "love-word";
+  word.textContent = "I love you";
+  word.style.left = `${50 + x * 2.55}%`;
+  word.style.top = `${49 + y * 2.55}%`;
+  word.style.animationDelay = `${(i % 24) * 0.12}s`;
+  container.appendChild(word);
+}
+</script>
+</body>
+</html>
